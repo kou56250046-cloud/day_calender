@@ -38,8 +38,8 @@
       position: absolute;
       inset: 0;
       background: radial-gradient(circle at center,
-        rgba(0, 0, 0, 0.5),
-        rgba(0, 0, 0, 0.50));
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0.65));
       pointer-events: none;
     }
 
@@ -48,15 +48,13 @@
       z-index: 1;
       max-width: 840px;
       width: 100%;
-      max-height: 680px;
-      height: 100%;
       max-height: min(680px, 100vh - 24px);
       margin: 0 auto;
       padding: 18px 16px 14px;
       border-radius: 24px;
       background: rgba(0, 0, 0, 0.25);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(2px);
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -107,53 +105,48 @@
     }
 
     /* 名言テキスト：ふわっと浮かび上がる（光彩控えめ） */
-.quote-text {
-  font-size: clamp(1.2rem, 4vw, 2.2rem);
-  line-height: 1.5;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 0 4px;
-  word-break: keep-all;
-  white-space: pre-line;
+    .quote-text {
+      font-size: clamp(1.2rem, 4vw, 2.2rem);
+      line-height: 1.5;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0 4px;
+      word-break: keep-all;
+      white-space: pre-line;
 
-  opacity: 0;
-  filter: blur(4px);
-  transform: translateY(12px);
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateY(12px);
 
-  /* 光彩弱めに初期化 */
-  text-shadow:
-    0 0 0px rgba(255, 255, 255, 0.0);
+      text-shadow: 0 0 0px rgba(255, 255, 255, 0.0);
 
-  animation: floatInGlow 0.9s ease-out forwards;
-}
+      animation: floatInGlow 0.9s ease-out forwards;
+    }
 
-/* 浮かんでくる＋光がほんのり */
-@keyframes floatInGlow {
-  0% {
-    opacity: 0;
-    filter: blur(8px);
-    transform: translateY(16px);
-    text-shadow:
-      0 0 0px rgba(255, 255, 255, 0.0);
-  }
-  60% {
-    opacity: 1;
-    filter: blur(1px);
-    transform: translateY(0);
-    text-shadow:
-      0 0 4px rgba(255, 255, 255, 0.35),
-      0 0 8px rgba(255, 255, 255, 0.2);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0px);
-    transform: translateY(0);
-    text-shadow:
-      0 0 2px rgba(255, 255, 255, 0.25),
-      0 0 6px rgba(255, 255, 255, 0.18);
-  }
-}
-
+    @keyframes floatInGlow {
+      0% {
+        opacity: 0;
+        filter: blur(8px);
+        transform: translateY(16px);
+        text-shadow: 0 0 0px rgba(255, 255, 255, 0.0);
+      }
+      60% {
+        opacity: 1;
+        filter: blur(1px);
+        transform: translateY(0);
+        text-shadow:
+          0 0 4px rgba(255, 255, 255, 0.35),
+          0 0 8px rgba(255, 255, 255, 0.2);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0);
+        text-shadow:
+          0 0 2px rgba(255, 255, 255, 0.25),
+          0 0 6px rgba(255, 255, 255, 0.18);
+      }
+    }
 
     .vertical {
       writing-mode: vertical-rl;
@@ -297,8 +290,6 @@
         align-items: flex-start;
       }
     }
-    
-    
   </style>
 </head>
 <body>
@@ -329,587 +320,32 @@
   </div>
 
   <script>
-    // ===== 名言データ（100個） =====
-    const quotes = [
-      {
-        text: "努力は裏切ることがある。\nでも、積み上げた時間だけは裏切らない。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "努力"
-      },
-      {
-        text: "限界だと思ったところから、\nもう一歩だけ進んだ場所にしか、\n景色の変化は起きない。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "根性"
-      },
-      {
-        text: "続ける者だけが、\n“続けていない自分”を\n置き去りにできる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "継続"
-      },
-      {
-        text: "鍛錬とは、\n昨日の自分を静かに否定し続ける行為だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "鍛錬"
-      },
-      {
-        text: "覚悟を決めた瞬間、\n世界の見え方は\n一瞬で変わる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "覚悟"
-      },
-      {
-        text: "筋肉は裏切らない。\n裏切るのは、\nやらない理由を並べた自分だけだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "筋肉"
-      },
-      {
-        text: "あきらめない心は、\n才能の有無よりも\n遠くまで人を運んでいく。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "あきらめない心"
-      },
-      {
-        text: "“正解の道”なんてない。\n選んだ道を正解にしていくしかない。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "選択"
-      },
-      {
-        text: "勇気とは、\n震える足で一歩目を出す力のことだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "勇気"
-      },
-      {
-        text: "後悔は消せない。\nでも、“次の一手”で\n薄めることはできる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "後悔"
-      },
-      {
-        text: "絶望の底で、\n「それでも」と言えた瞬間に、\n物語は反転し始める。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "絶望"
-      },
-      {
-        text: "孤独は、\nまだ出会っていない自分と\n向き合うための時間だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "孤独"
-      },
-      {
-        text: "天才とは、\n情熱を途切れさせない凡人のことだ。",
-        authorLabel: "フィクション",
-        authorName: "とある師匠",
-        theme: "才能"
-      },
-      {
-        text: "心が折れそうになったとき、\nあと一回だけ、と\n自分に頼んでみなさい。",
-        authorLabel: "偉人",
-        authorName: "無名のコーチ",
-        theme: "根性"
-      },
-      {
-        text: "倒れてもいい。\n大事なのは、\n“起き上がる前提で倒れる”ことだ。",
-        authorLabel: "フィクション",
-        authorName: "物語の主人公",
-        theme: "勇気"
-      },
-      {
-        text: "努力が報われない日がある。\nそれでも手を止めない人だけが、\n“報われた日”に立ち会える。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "努力"
-      },
-      {
-        text: "逃げたくなるほどの痛みは、\n伸びようとしている\n場所の悲鳴だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "鍛錬"
-      },
-      {
-        text: "選ばなかった道を\n悔やむより、\n選んだ道で本気になるほうが難しい。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "選択"
-      },
-      {
-        text: "誰も見ていないところで\n積んだ一回が、\n一番大きな一回になる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "継続"
-      },
-      {
-        text: "心が折れた回数が、\n強くなった回数だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "根性"
-      },
-      {
-        text: "今は報われなくていい。\n報われるまで続ければ、\nそれはすべて布石になる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "努力"
-      },
-      {
-        text: "「まだ足りない」と\n自分に言える人は、\nすでに多くを積んでいる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "鍛錬"
-      },
-      {
-        text: "やめる理由は\nいくらでも浮かぶ。\n続ける理由は、たったひとつでいい。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "継続"
-      },
-      {
-        text: "覚悟とは、\n逃げ道を消しても\n自分を責めないと決めること。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "覚悟"
-      },
-      {
-        text: "筋肉は、\n昨日までの自分の選択の\n“結果報告書”だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "筋肉"
-      },
-      {
-        text: "あきらめるのは、\n「もう一度だけ」の先にある光景を\n見ないと決めることだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "あきらめない心"
-      },
-      {
-        text: "選択とは、\n無数の未来の中から\n一つを救い上げる行為だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "選択"
-      },
-      {
-        text: "勇気は、\n恐怖があるからこそ\n成立する感情だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "勇気"
-      },
-      {
-        text: "後悔は、\n「次はこうしたい」という\n願いの形でもある。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "後悔"
-      },
-      {
-        text: "絶望を知った人だけが、\n希望の重さを受け止められる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "絶望"
-      },
-      {
-        text: "孤独の時間に\n自分と仲良くなれた人は、\n誰といてもブレなくなる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "孤独"
-      },
-      {
-        text: "努力は、\n「まだやれる」と\n自分を信じる行為そのものだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "努力"
-      },
-      {
-        text: "根性とは、\n泣きながらでも\n手を止めないことだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "根性"
-      },
-      {
-        text: "継続のコツは、\n「頑張る日」と\n「最低限の日」の両方を許すこと。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "継続"
-      },
-      {
-        text: "鍛錬は、\n結果が出ていないときほど\n本物に近づいていく。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "鍛錬"
-      },
-      {
-        text: "覚悟した人の目は、\nもう“できない理由”を\n探していない。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "覚悟"
-      },
-      {
-        text: "筋肉は、\n「今日サボったこと」も\nすべて覚えている。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "筋肉"
-      },
-      {
-        text: "あきらめない心は、\n他人の評価ではなく\n自分との約束でできている。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "あきらめない心"
-      },
-      {
-        text: "どの道を選んでも、\n歩いているうちに\n景色は変わっていく。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "選択"
-      },
-      {
-        text: "勇気が出ない日は、\n“半歩”だけでいい。\n半歩でも前に出れば景色は変わる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "勇気"
-      },
-      {
-        text: "後悔は、\n過去への執着ではなく、\n未来へのメッセージかもしれない。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "後悔"
-      },
-      {
-        text: "絶望は、\n物語の最後ではなく、\nターニングポイントの名前だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "絶望"
-      },
-      {
-        text: "孤独に耐えた時間は、\nどんな拍手よりも\nあなたを強くする。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "孤独"
-      },
-      {
-        text: "努力が足りないと\n自分を責めるより、\nまず“続いたこと”を褒めてやれ。",
-        authorLabel: "フィクション",
-        authorName: "とあるトレーナー",
-        theme: "努力"
-      },
-      {
-        text: "根性で乗り切るのではない。\n根性を出さざるをえない場に\n自分を置くのだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "根性"
-      },
-      {
-        text: "継続とは、\n「また今日から」で\n何度でもやり直せる力だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "継続"
-      },
-      {
-        text: "鍛錬で流した汗は、\nいつか必ず\n自信という鎧になる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "鍛錬"
-      },
-      {
-        text: "覚悟した人の背中には、\n迷いと同じだけの\n優しさが宿る。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "覚悟"
-      },
-      {
-        text: "筋肉に効かない努力はない。\nただ、効くまでの時間に\n個人差があるだけだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "筋肉"
-      },
-      {
-        text: "あきらめない心は、\n「今日は休む」と決めて\n明日ちゃんと戻ってくることだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "あきらめない心"
-      },
-      {
-        text: "選択を迷うのは、\nどちらの未来も\n本気で守りたいからだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "選択"
-      },
-      {
-        text: "勇気は、\n「怖い」と口に出した\nその次の行動に宿る。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "勇気"
-      },
-      {
-        text: "後悔ばかりの人生でもいい。\nその分だけ、\n次の一歩に深みが出る。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "後悔"
-      },
-      {
-        text: "絶望を何度もくぐり抜けた人ほど、\n小さな希望に\n敏感になっていく。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "絶望"
-      },
-      {
-        text: "孤独に泣いた夜を知る人は、\n誰かの涙に\nそっと寄り添える。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "孤独"
-      },
-      {
-        text: "努力は、\n他人に見せるためではなく、\n自分に胸を張るためにある。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "努力"
-      },
-      {
-        text: "根性は、\n才能を補うためではない。\n覚悟を証明するためにある。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "根性"
-      },
-      {
-        text: "継続は、\n才能を上書きする\nただ一つの地味な魔法だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "継続"
-      },
-      {
-        text: "鍛錬の時間は、\n結果が出てから\n一気に輝きを増す。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "鍛錬"
-      },
-      {
-        text: "覚悟は、\n「失敗しても愛してやる」と\n自分に宣言すること。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "覚悟"
-      },
-      {
-        text: "筋肉は、\n心の弱さすらも\n飲み込んでくれる相棒だ。",
-        authorLabel: "フィクション",
-        authorName: "ジムの住人",
-        theme: "筋肉"
-      },
-      {
-        text: "あきらめない心は、\n何度折れても\nまた拾い上げられる強さだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "あきらめない心"
-      },
-      {
-        text: "選択を間違えたと思ったら、\nそこでまた選び直せばいい。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "選択"
-      },
-      {
-        text: "勇気が出ない日は、\n勇気を出そうと\nもがいた自分を褒めてやれ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "勇気"
-      },
-      {
-        text: "後悔のない人生などない。\nあるのは、\n悔いを抱えながらも進む人生だけだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "後悔"
-      },
-      {
-        text: "絶望を知っているからこそ、\n希望を見つけたときに\n涙が出る。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "絶望"
-      },
-      {
-        text: "孤独は、\n本当に大切なものを\n見極めるための沈黙だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "孤独"
-      },
-      {
-        text: "努力の方向を間違えてもいい。\n止まらなければ、\nいつか軌道修正できる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "努力"
-      },
-      {
-        text: "根性は、\n自分との約束を\n守り続けた人の最後の武器だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "根性"
-      },
-      {
-        text: "継続のごほうびは、\n“できること”よりも、\n“自分を信じられること”だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "継続"
-      },
-      {
-        text: "鍛錬で流した汗の量は、\n本番の不安を\n静かに溶かしてくれる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "鍛錬"
-      },
-      {
-        text: "覚悟した人は、\n失敗しても\n立ち上がる場所を知っている。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "覚悟"
-      },
-      {
-        text: "筋肉は、\n昨日の手抜きも\n今日の本気も\nすべて正直に受け取る。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "筋肉"
-      },
-      {
-        text: "あきらめない心は、\n「もうダメだ」と\n口に出したあとにも残っている。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "あきらめない心"
-      },
-      {
-        text: "選択の連続が、\nいつの間にか\n人格という風景をつくっていく。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "選択"
-      },
-      {
-        text: "勇気とは、\nたとえ震えながらでも\n前を向き続ける意地だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "勇気"
-      },
-      {
-        text: "後悔するほど\n全力で生きた日を、\n恥じる必要なんてない。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "後悔"
-      },
-      {
-        text: "絶望の夜を越えた人だけが、\n朝日の本当の色を知る。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "絶望"
-      },
-      {
-        text: "孤独を抱きしめられる人は、\n人混みの中でも\n自分を見失わない。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "孤独"
-      },
-      {
-        text: "努力は、\n「昨日の自分より\nほんの少しマシ」を\n積み重ねる遊びだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "努力"
-      },
-      {
-        text: "根性は、\n派手な言葉ではなく、\n静かな継続の中に宿る。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "根性"
-      },
-      {
-        text: "継続をバカにする人は、\n一度も本気で\n続けたことがないだけだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "継続"
-      },
-      {
-        text: "鍛錬は、\n今日の自分を\n明日の自分に\n驚かせるための準備だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "鍛錬"
-      },
-      {
-        text: "覚悟とは、\n「それでも進む」と\n何度でも決め直す力だ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "覚悟"
-      },
-      {
-        text: "筋肉は、\n心が折れたときにも\n立ち上がる理由をくれる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "筋肉"
-      },
-      {
-        text: "あきらめない心は、\n結果ではなく\nプロセスに価値を置くところから生まれる。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "あきらめない心"
-      },
-      {
-        text: "選択を恐れるな。\nどのみち、\n選ばなかった道も\n別の誰かが歩いていく。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "選択"
-      },
-      {
-        text: "勇気とは、\n誰かに背中を押された\n一瞬を逃さないことだ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "勇気"
-      },
-      {
-        text: "後悔は、\n「本当はこうしたかった」の\n証拠でもある。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "後悔"
-      },
-      {
-        text: "絶望の淵で\nそれでも生きると決めた人の一歩は、\n世界で一番美しい。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "絶望"
-      },
-      {
-        text: "孤独なときこそ、\n自分自身を\n一番の味方にしてやれ。",
-        authorLabel: "オリジナル",
-        authorName: "",
-        theme: "孤独"
+    // ===== 名言データ（quotes.json）読み込み =====
+    let quotes = [];
+
+    async function loadQuotes() {
+      try {
+        const res = await fetch('quotes.json');
+        if (!res.ok) throw new Error('HTTPエラー: ' + res.status);
+
+        const data = await res.json();
+        // \n を改行に変換
+        quotes = data.map(q => ({
+          text: String(q.text).replace(/\\n/g, '\n'),
+          authorName: String(q.authorName || '')
+        }));
+      } catch (e) {
+        console.error('JSON読み込みエラー', e);
+        quotes = [
+          {
+            text: "名言データの読み込みに失敗しました。\nquotes.json を確認してください。",
+            authorName: "System"
+          }
+        ];
       }
-    ];
+    }
 
-    // 自然系背景画像
-    const backgrounds = [
-  // 雲海・山
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2000&q=80",
-  "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=80",
-
-  // 北欧のオーロラ
-  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2000&q=80",
-  "https://images.unsplash.com/photo-1504386106331-3e4e71712b38?auto=format&fit=crop&w=2000&q=80",
-
-  // 森 × 光 shafts（神秘系）
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2000&q=80",
-  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2000&q=80",
-
-  // 滝・渓谷
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80",
-  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2000&q=80",
-
-  // 砂漠 × 朝日
-  "https://images.unsplash.com/photo-1500530855960-fd53ca2f2e8e?auto=format&fit=crop&w=2000&q=80",
-
-  // 星空 × シルエット
-  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2000&q=80",
-  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=2000&q=80",
-
-  // 海 × 夕暮れ
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80",
-
-];
-
-
+    // ===== DOM取得 =====
     const todayEl = document.getElementById("today");
     const quoteAreaEl = document.getElementById("quoteArea");
     const quoteTextEl = document.getElementById("quoteText");
@@ -921,6 +357,7 @@
     const savedInfoEl = document.getElementById("savedInfo");
     const statusEl = document.getElementById("status");
 
+    // ===== 日付 =====
     const today = new Date();
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -928,10 +365,24 @@
     const formattedDate = `${yyyy}.${mm}.${dd}`;
     todayEl.textContent = formattedDate;
 
+    // ===== 背景画像 =====
+    const backgrounds = [
+      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1504386106331-3e4e71712b38?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1500530855960-fd53ca2f2e8e?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=2000&q=80"
+    ];
+
     const baseSeed = yyyy * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
     let offset = 0;
 
     function getCurrentIndex() {
+      if (!quotes.length) return 0;
       return (baseSeed + offset) % quotes.length;
     }
 
@@ -944,6 +395,7 @@
       document.body.style.backgroundImage = `url('${bgUrl}')`;
     }
 
+    // ===== 名言表示 =====
     function renderQuote() {
       const index = getCurrentIndex();
       const q = quotes[index];
@@ -953,11 +405,13 @@
 
       setTimeout(() => {
         quoteTextEl.textContent = q.text;
+
         const authorText = q.authorName
-          ? `${q.authorName}（${q.authorLabel}）`
-          : `作者: ${q.authorLabel}`;
-        authorEl.innerHTML = `<span>${authorText}</span>`;
-        themeLabelEl.textContent = `テーマ：${q.theme}`;
+          ? `作者：${q.authorName}`
+          : "";
+
+        authorEl.innerHTML = authorText ? `<span>${authorText}</span>` : "";
+        themeLabelEl.textContent = ""; // 今回はテーマなし
 
         quoteAreaEl.classList.remove("fade-out");
         quoteAreaEl.classList.add("fade-in");
@@ -968,6 +422,7 @@
       statusEl.className = "status";
     }
 
+    // ===== 保存系 =====
     const STORAGE_KEY = "daily_quotes_saved";
 
     function loadSavedQuotes() {
@@ -998,9 +453,7 @@
       saved.push({
         date: formattedDate,
         text: q.text,
-        authorLabel: q.authorLabel,
         authorName: q.authorName,
-        theme: q.theme,
         savedAt: new Date().toISOString()
       });
 
@@ -1022,6 +475,7 @@
         `これまでに記録した名言：${saved.length}件　（本日：${todayCount}件）`;
     }
 
+    // ===== 縦書き切替 =====
     let isVertical = false;
     function toggleVertical() {
       isVertical = !isVertical;
@@ -1034,6 +488,7 @@
       }
     }
 
+    // ===== イベント登録 =====
     nextBtn.addEventListener("click", () => {
       offset += 1;
       renderQuote();
@@ -1042,9 +497,14 @@
     saveBtn.addEventListener("click", saveCurrentQuote);
     toggleVerticalBtn.addEventListener("click", toggleVertical);
 
-    updateSavedInfo();
-    renderQuote();
+    // ===== 初期化 =====
+    async function initApp() {
+      await loadQuotes();   // JSON読み込み
+      updateSavedInfo();    // 保存数表示
+      renderQuote();        // 最初の名言を描画
+    }
+
+    initApp();
   </script>
 </body>
 </html>
-
